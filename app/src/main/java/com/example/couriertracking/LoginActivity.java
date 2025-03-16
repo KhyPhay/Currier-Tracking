@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
             String password = passwordField.getText().toString();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                // Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             } else {
                 // Call a method to handle authentication
                 //authenticateUser(email, password);
