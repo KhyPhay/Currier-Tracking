@@ -54,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // TODO: Add database integration (Firebase, SQLite, or API)
         Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
 
         // Redirect to Login
