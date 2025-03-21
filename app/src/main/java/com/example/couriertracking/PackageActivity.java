@@ -3,6 +3,8 @@ package com.example.couriertracking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +18,7 @@ public class PackageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ShipmentAdapter adapter;
     private List<Shipment> shipments;
-
+    private ImageView notification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +26,21 @@ public class PackageActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recentShipmentsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-
         // ✅ Ensure "Account" tab is highlighted when the activity is opened
         bottomNavigationView.setSelectedItemId(R.id.nav_package);
 
 
+        notification = findViewById(R.id.ivNotification);
 
+        notification.setOnClickListener(v -> {
+            startActivity(new Intent(PackageActivity.this, NotificationActivity.class));
+        });
 
         shipments = new ArrayList<>();
         shipments.add(new Shipment("#HWDSF776567DS", "On the way", "24 June"));
+        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
+        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
@@ -45,7 +51,6 @@ public class PackageActivity extends AppCompatActivity {
         adapter = new ShipmentAdapter(shipments);
         recyclerView.setAdapter(adapter);
 
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,7 +59,6 @@ public class PackageActivity extends AppCompatActivity {
                     startActivity(new Intent(PackageActivity.this, HomeActivity.class));
                     return true;
                 } else if (itemId == R.id.nav_package) {
-                    startActivity(new Intent(PackageActivity.this, PackageActivity.class));
                     return true;
                 } else if (itemId == R.id.nav_message) {
 //                    startActivity(new Intent(this, MessagesActivity.class));

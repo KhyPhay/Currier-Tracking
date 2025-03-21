@@ -3,6 +3,8 @@ package com.example.couriertracking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +18,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ShipmentAdapter adapter;
     private List<Shipment> shipments;
-
+    private ImageView notification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,12 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recentShipmentsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        notification = findViewById(R.id.notificationIcon);
+
+        notification.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
+        });
+
 
         shipments = new ArrayList<>();
         shipments.add(new Shipment("#HWDSF776567DS", "On the way", "24 June"));
@@ -33,15 +41,12 @@ public class HomeActivity extends AppCompatActivity {
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
         shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-//        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-
         adapter = new ShipmentAdapter(shipments);
         recyclerView.setAdapter(adapter);
+
+
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
