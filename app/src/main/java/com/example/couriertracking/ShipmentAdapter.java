@@ -1,7 +1,4 @@
 package com.example.couriertracking;
-
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +36,6 @@ public class ShipmentAdapter extends RecyclerView.Adapter<ShipmentAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView shipmentId, status;
-
         public ViewHolder(View itemView) {
             super(itemView);
             shipmentId = itemView.findViewById(R.id.shipmentId);

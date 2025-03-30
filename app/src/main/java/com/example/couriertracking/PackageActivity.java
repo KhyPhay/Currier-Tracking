@@ -19,6 +19,7 @@ public class PackageActivity extends AppCompatActivity {
     private ShipmentAdapter adapter;
     private List<Shipment> shipments;
     private ImageView notification;
+    private DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,27 +28,22 @@ public class PackageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recentShipmentsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        // ✅ Ensure "Account" tab is highlighted when the activity is opened
         bottomNavigationView.setSelectedItemId(R.id.nav_package);
-
-
         notification = findViewById(R.id.ivNotification);
 
         notification.setOnClickListener(v -> {
             startActivity(new Intent(PackageActivity.this, NotificationActivity.class));
         });
 
-        shipments = new ArrayList<>();
-        shipments.add(new Shipment("#HWDSF776567DS", "On the way", "24 June"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
+        dbHelper = new DatabaseHelper(this);
 
+        notification = findViewById(R.id.ivNotification);
+        notification.setOnClickListener(v ->
+                startActivity(new Intent(PackageActivity.this, NotificationActivity.class))
+        );
+
+        // Fetch shipments from the database
+        shipments = dbHelper.getAllShipments();
         adapter = new ShipmentAdapter(shipments);
         recyclerView.setAdapter(adapter);
 

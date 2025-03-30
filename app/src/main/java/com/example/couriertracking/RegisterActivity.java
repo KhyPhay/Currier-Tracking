@@ -1,6 +1,9 @@
 package com.example.couriertracking;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,21 +47,55 @@ public class RegisterActivity extends AppCompatActivity {
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
+        // Check for empty fields
         if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Check if passwords match
         if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+        // Check if the email or phone number is already registered
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Redirect to Login
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+        // Query the database to check if the email or phone number already exists
+        Cursor cursor = db.query("users", null, "email=? OR phone=?", new String[]{email, phone}, null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            // Email or phone already exists
+            Toast.makeText(this, "Email or Phone is already registered!", Toast.LENGTH_SHORT).show();
+            cursor.close();  // Don't forget to close the cursor!
+            db.close();  // Close the database
+            return;
+        }
+
+        cursor.close();  // Close the cursor if no match
+
+        // Insert user data into the database
+        ContentValues userValues = new ContentValues();
+        userValues.put("name", name);
+        userValues.put("phone", phone);
+        userValues.put("email", email);
+        userValues.put("password", password);  // Store password securely in real apps (hash it!)
+
+        long userId = db.insert("users", null, userValues); // Insert user data
+
+        if (userId == -1) {
+            Toast.makeText(this, "Registration failed!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+
+            // Redirect to Login
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        db.close();  // Close the database after insert operation
     }
 }

@@ -1,6 +1,7 @@
 package com.example.couriertracking;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -33,20 +34,12 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        shipments = new ArrayList<>();
-        shipments.add(new Shipment("#HWDSF776567DS", "On the way", "24 June"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
-        shipments.add(new Shipment("#7XZ6V87Z6XCSA7", "Delivered", "24 May"));
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        // Fetch shipments from the database
+        shipments = dbHelper.getAllShipments();
         adapter = new ShipmentAdapter(shipments);
         recyclerView.setAdapter(adapter);
-
-
-
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, PackageActivity.class));
                     return true;
                 } else if (itemId == R.id.nav_message) {
-//                    startActivity(new Intent(this, MessagesActivity.class));
+                    startActivity(new Intent(HomeActivity.this, ParcelTrackingActivity.class));
                     return true;
                 } else if (itemId == R.id.nav_account) {
                     startActivity(new Intent(HomeActivity.this, AccountActivity.class));

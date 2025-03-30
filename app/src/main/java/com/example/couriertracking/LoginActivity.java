@@ -2,7 +2,6 @@ package com.example.couriertracking;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,11 +16,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private TextView forgotPassword, createAccount;
     private ImageView backArrow;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        dbHelper = new DatabaseHelper(this); // Initialize DatabaseHelper
 
         // Initialize views
         emailField = findViewById(R.id.emailField);
@@ -33,16 +35,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Login button click
         loginButton.setOnClickListener(v -> {
-            String email = emailField.getText().toString();
-            String password = passwordField.getText().toString();
+            String email = emailField.getText().toString().trim();
+            String password = passwordField.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                // Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-            } else {
-                // Call a method to handle authentication
-                //authenticateUser(email, password);
+                Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            // Call authentication method
+            if (dbHelper.checkUser(email, password)) {
+                Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -59,13 +66,4 @@ public class LoginActivity extends AppCompatActivity {
         // Back arrow click
         backArrow.setOnClickListener(v -> finish());
     }
-
-//    private void authenticateUser(String email, String password) {
-//        if (email.equals("admin@example.com") && password.equals("password123")) {
-//            Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-//        } else {
-//            Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }
