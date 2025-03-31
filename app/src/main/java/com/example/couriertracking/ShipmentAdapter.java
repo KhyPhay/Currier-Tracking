@@ -1,4 +1,6 @@
 package com.example.couriertracking;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,7 @@ import java.util.List;
 public class ShipmentAdapter extends RecyclerView.Adapter<ShipmentAdapter.ViewHolder> {
 
     private List<Shipment> shipments;
-
+    private Context context;
     public ShipmentAdapter(List<Shipment> shipments) {
         this.shipments = shipments;
     }
@@ -27,6 +29,12 @@ public class ShipmentAdapter extends RecyclerView.Adapter<ShipmentAdapter.ViewHo
         Shipment shipment = shipments.get(position);
         holder.shipmentId.setText(shipment.getId());
         holder.status.setText(shipment.getStatus() + " • " + shipment.getDate());
+        holder.itemView.setOnClickListener(view -> {
+            Context context = holder.itemView.getContext(); // Get valid context
+            Intent intent = new Intent(context, ParcelTrackingActivity.class);
+            intent.putExtra("shipment_id", shipment.getId()); // Pass data if needed
+            context.startActivity(intent);
+        });
     }
 
     @Override

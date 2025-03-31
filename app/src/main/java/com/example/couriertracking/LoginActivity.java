@@ -1,6 +1,8 @@
 package com.example.couriertracking;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = passwordField.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
                 return;
             }

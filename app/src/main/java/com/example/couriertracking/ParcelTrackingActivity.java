@@ -17,6 +17,13 @@ public class ParcelTrackingActivity extends AppCompatActivity {
 
         // Initialize views
         ImageView ivBack = findViewById(R.id.backButton);
-        Intent intent = new Intent(ParcelTrackingActivity.this, PackageActivity.class);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ParcelTrackingActivity.this, PackageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
