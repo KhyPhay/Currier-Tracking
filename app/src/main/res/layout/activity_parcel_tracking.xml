@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back_dark"/>
@@ -180,6 +180,7 @@
                 android:layout_marginBottom="16dp" />
 
             <LinearLayout
+                android:id="@+id/statusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -209,7 +210,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_check_green"
+                            android:src="@drawable/ic_check_dark"
                             android:contentDescription="Delivered" />
                         <View
                             android:layout_width="2dp"
@@ -225,17 +226,13 @@
                         android:orientation="vertical"
                         android:layout_marginStart="16dp">
                         <TextView
+                            android:id="@+id/success"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Successfully Delivered"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/green" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="You parcel was delivered successfully by the delivery man"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -266,7 +263,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
-                            android:contentDescription="In-Transit" />
+                            android:contentDescription="Arrived your Destination" />
                         <View
                             android:layout_width="2dp"
                             android:layout_height="0dp"
@@ -281,16 +278,12 @@
                         android:orientation="vertical"
                         android:layout_marginStart="16dp">
                         <TextView
+                            android:id="@+id/arrived"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="In-Transit"
+                            android:text="Arrived your Destination"
                             android:textSize="16sp"
                             android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="The package is now in transit. You will receive the parcel shortly"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -321,7 +314,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
-                            android:contentDescription="Pickup Confirmation" />
+                            android:contentDescription="On Delivery" />
                         <View
                             android:layout_width="2dp"
                             android:layout_height="0dp"
@@ -336,74 +329,16 @@
                         android:orientation="vertical"
                         android:layout_marginStart="16dp">
                         <TextView
+                            android:id="@+id/delivery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pickup Confirmation"
+                            android:text="On Delivery"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Our delivery man picked up the parcel from us"
-                            android:textSize="14sp" />
+                            android:textStyle="bold" />>
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="16dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="17"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sept"
-                            android:textSize="12sp" />
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:contentDescription="Parcel Preparation" />
-                        <View
-                            android:layout_width="2dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="@android:color/darker_gray" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Parcel Preparation"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="You parcel has been prepared and ready for pickup"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -430,7 +365,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_dark"
-                            android:contentDescription="Parcel Received" />
+                            android:contentDescription="Courier Received" />
                         <View
                             android:layout_width="2dp"
                             android:layout_height="0dp"
@@ -446,16 +381,12 @@
                         android:orientation="vertical"
                         android:layout_marginStart="16dp">
                         <TextView
+                            android:id="@+id/received"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parcel Received"
+                            android:text="Courier Sent"
                             android:textSize="16sp"
                             android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="We have received your parcel"
-                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             if (email.isEmpty() || password.isEmpty()) {
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+
                 return;
             }
 

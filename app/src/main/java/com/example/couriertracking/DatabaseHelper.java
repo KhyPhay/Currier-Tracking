@@ -14,7 +14,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "courier_tracking.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -81,11 +81,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS tracking_status");
-        db.execSQL("DROP TABLE IF EXISTS couriers");
-        db.execSQL("DROP TABLE IF EXISTS addresses");
-        db.execSQL("DROP TABLE IF EXISTS users");
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS tracking_status");
+//        db.execSQL("DROP TABLE IF EXISTS couriers");
+//        db.execSQL("DROP TABLE IF EXISTS addresses");
+//        db.execSQL("DROP TABLE IF EXISTS users");
+//        onCreate(db);
+        if (oldVersion < 3) { // If database version is 1, add the columns without dropping data
+//            db.execSQL("ALTER TABLE couriers ADD COLUMN deliver_price REAL");
+//            db.execSQL("ALTER TABLE couriers ADD COLUMN item_cost REAL");
+            db.execSQL("ALTER TABLE couriers ADD COLUMN item_cost status_text");
+        }
     }
 
     private void seedData(SQLiteDatabase db) {
